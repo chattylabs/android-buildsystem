@@ -5,9 +5,7 @@ ext {
     androidMinSdkVersion = 21 //18
     androidTargetSdkVersion = 24
     androidCompileSdkVersion = 27
-    supportVersion = '27.1.0'
-    playServiceVersion = '15.0.0'
-    constraintVersion = '1.0.2'
+    supportVersion = '27.1.1'
 
     //Libraries
     daggerVersion = '2.15'
