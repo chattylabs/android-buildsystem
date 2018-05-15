@@ -17,8 +17,8 @@ ext {
     airbnbDeeplinkVersion = '3.1.0'
 
     sdk = [
-        voiceInteraction: 'com.chattylabs.sdk.android:voice-interaction:0.12.5',
-        notificationsParser: 'com.chattylabs.sdk.android:notifications-parser:0.20.15'
+        voiceInteraction: 'com.chattylabs.sdk.android:voice-interaction:0.12.6',
+        notificationsParser: 'com.chattylabs.sdk.android:notifications-parser:0.20.16'
     ]
 
     dagger = [
