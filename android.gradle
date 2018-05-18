@@ -32,6 +32,8 @@ android {
         quiet true
         abortOnError false
         ignoreWarnings true
+        checkAllWarnings false
+        checkReleaseBuilds false
         //Some libraries have issues with this.
         disable 'InvalidPackage'
         disable 'OldTargetApi'
@@ -69,7 +71,15 @@ android {
             }
         }
     }
+}
 
+/*
+Avoid Javadoc to fail and to stop generating sources
+*/
+if (JavaVersion.current().isJava8Compatible()) {
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
 }
 
 /*
