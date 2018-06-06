@@ -2,15 +2,16 @@
 
 android {
 
-    compileSdkVersion androidCompileSdkVersion
+    compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion androidMinSdkVersion
-        targetSdkVersion androidTargetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 26
         versionCode readVersionCode()
         versionName readVersionName()
+
+        // Enable this option on your own gradle file if you need it
         //vectorDrawables.useSupportLibrary = true
-        //multiDexEnabled true
     }
 
     compileOptions {
@@ -41,7 +42,6 @@ android {
         //disable 'IconDensities'
         //For testing purpose. This is safe to remove.
         //disable 'IconMissingDensityFolder'
-        //For testing purpose. This is safe to remove.
     }
 
     buildTypes {
@@ -56,12 +56,14 @@ android {
 
     testOptions {
 
+        // Enable this option on your own gradle file if you need it
         //unitTests.returnDefaultValues = true
 
         // Always show the result of every unit test, even if it passes.
         unitTests {
             // Robolectric
             includeAndroidResources = true
+            // Tests
             all {
                 testLogging {
                     events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
@@ -74,8 +76,8 @@ android {
 }
 
 /*
-Avoid Javadoc to fail and to stop generating sources
-*/
+ * Avoid Javadoc to fail and to stop generating sources
+ */
 if (JavaVersion.current().isJava8Compatible()) {
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet')
@@ -83,13 +85,13 @@ if (JavaVersion.current().isJava8Compatible()) {
 }
 
 /*
-Resolves dependency versions across test and production APKs, specifically, transitive
-dependencies. This is required since Espresso internally has a dependency on support-annotations.
-*/
+ * Resolves dependency versions across test and production APKs, specifically, transitive
+ * dependencies. This is required since Espresso internally has a dependency on support-annotations.
+ */
 configurations.all {
-    resolutionStrategy.force "com.android.support:support-v4:${supportVersion}"
-    resolutionStrategy.force "com.android.support:appcompat-v7:${supportVersion}"
-    resolutionStrategy.force "com.android.support:support-annotations:${supportVersion}"
+    resolutionStrategy.force "com.android.support:support-v4:27.1.1"
+    resolutionStrategy.force "com.android.support:appcompat-v7:27.1.1"
+    resolutionStrategy.force "com.android.support:support-annotations:27.1.1"
 }
 
 group = 'com.chattylabs.sdk.android'
