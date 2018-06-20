@@ -9,12 +9,12 @@ android {
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode readVersionCode()
         versionName readVersionName()
 
         // Enable this option on your own gradle file if you need it
-        //vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {
@@ -86,16 +86,3 @@ if (JavaVersion.current().isJava8Compatible()) {
         options.addStringOption('Xdoclint:none', '-quiet')
     }
 }
-
-/*
- * Resolves dependency versions across test and production APKs, specifically, transitive
- * dependencies. This is required since Espresso internally has a dependency on support-annotations.
- */
-configurations.all {
-    resolutionStrategy.force "com.android.support:support-v4:27.1.1"
-    resolutionStrategy.force "com.android.support:appcompat-v7:27.1.1"
-    resolutionStrategy.force "com.android.support:support-annotations:27.1.1"
-}
-
-group = 'com.chattylabs.sdk.android'
-version = android.defaultConfig.versionName
