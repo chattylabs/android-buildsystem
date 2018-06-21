@@ -83,6 +83,7 @@ android {
  */
 if (JavaVersion.current().isJava8Compatible()) {
     tasks.withType(Javadoc) {
+        excludes = ['**/*.kt']
         options.addStringOption('Xdoclint:none', '-quiet')
     }
 }
