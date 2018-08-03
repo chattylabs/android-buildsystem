@@ -1,0 +1,93 @@
+plugins {
+    id 'com.chattylabs.versioning' version '0.19.0'
+}
+
+// Common android gradle configuration
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode versioning.code()
+        versionName versioning.name()
+
+        // Enable this option on your own gradle file if you need it
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'LICENSE.txt'
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        checkAllWarnings false
+        checkReleaseBuilds false
+        //Some libraries have issues with this.
+        disable 'InvalidPackage'
+        disable 'OldTargetApi'
+        //Lint gives this warning but SDK 20 would be Android L Beta.
+        //disable 'IconDensities'
+        //For testing purpose. This is safe to remove.
+        //disable 'IconMissingDensityFolder'
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testCoverageEnabled = false
+        }
+    }
+
+    testOptions {
+
+        // Enable this option on your own gradle file if you need it
+        //unitTests.returnDefaultValues = true
+
+        // Always show the result of every unit test, even if it passes.
+        unitTests {
+            // Robolectric
+            includeAndroidResources = true
+            // Tests
+            all {
+                testLogging {
+                    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                    outputs.upToDateWhen { false }
+                    showStandardStreams = true
+                }
+            }
+        }
+    }
+}
+
+/*
+ * Avoid Javadoc to fail and to stop generating sources
+ */
+if (JavaVersion.current().isJava8Compatible()) {
+    tasks.withType(Javadoc) {
+        excludes = ['**/*.kt']
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
