@@ -5,13 +5,13 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
 
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 27
-        versionCode readVersionCode()
-        versionName readVersionName()
+        targetSdkVersion 28
+        versionCode 1
+        versionName "0.1"
 
         // Enable this option on your own gradle file if you need it
         vectorDrawables.useSupportLibrary = true
