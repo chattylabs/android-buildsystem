@@ -85,6 +85,21 @@ android {
 }
 
 /*
+ * Option to configure to disable Dex and Images Cruncher on CI
+ *
+ * Usage: ./gradlew build -PisCi=true
+ */
+project.ext.enableOption = !project.isCi
+
+project.plugins.whenPluginAdded { plugin ->
+    if ("com.android.build.gradle.AppPlugin" == plugin.class.name ||
+        "com.android.build.gradle.LibraryPlugin" == plugin.class.name) {
+        project.android.dexOptions.preDexLibraries = rootProject.ext.enableOption
+        project.android.aaptOptions.cruncherEnabled = rootProject.ext.enableOption
+    }
+}
+
+/*
  * Avoid Javadoc to fail and to stop generating sources
  */
 if (JavaVersion.current().isJava8Compatible()) {
