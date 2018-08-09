@@ -89,7 +89,7 @@ android {
  *
  * Usage: ./gradlew build -PisCi=true
  */
-project.ext.enableOption = !project.isCi
+project.ext.enableOption = project.hasProperty("isCi") ? !project.isCi : true
 
 project.plugins.whenPluginAdded { plugin ->
     if ("com.android.build.gradle.AppPlugin" == plugin.class.name ||
