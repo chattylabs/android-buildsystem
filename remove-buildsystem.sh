@@ -1,6 +1,6 @@
 #!/bin/bash
 
-submodule="android-buildsystem"
+submodule=${PWD##*/}
 
 git submodule deinit "$submodule"
 git rm --cached "$submodule"
