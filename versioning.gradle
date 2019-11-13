@@ -10,7 +10,7 @@ versioning {
     }
 }
 
-def computeVersionCode = { ->
+ext.computeVersionCode = { ->
     try {
         def stdout = new ByteArrayOutputStream()
         exec {
