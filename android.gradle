@@ -5,18 +5,6 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
 
-    compileSdkVersion 28
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "0.1"
-
-        // Enable this option on your own gradle file if you need it
-        vectorDrawables.useSupportLibrary = true
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -92,7 +80,7 @@ android {
     }
 }
 
-if (kotlin_version == null) throw new NullPointerException("Please define \$kotlin_version " +
+if (kotlin_version == null) throw new NullPointerException("Please define \"ext.kotlin_version\" " +
         "in your root gradle file")
 
 dependencies {
@@ -104,7 +92,7 @@ dependencies {
  *
  * Usage: ./gradlew build -PisCi=true
  */
-project.ext.enableOption = project.hasProperty("isCi") ? !project.isCi : true
+project.ext.enableOption = project.hasProperty("isCI") ? !project.isCI : true
 
 project.plugins.whenPluginAdded { plugin ->
     if ("com.android.build.gradle.AppPlugin" == plugin.class.name ||
