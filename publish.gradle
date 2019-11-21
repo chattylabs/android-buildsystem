@@ -6,6 +6,7 @@ version = android.defaultConfig.versionName
 publish {
     userOrg = 'chattylabs'
     groupId = project.group
+    uploadName = "android-" + project.name.replace("sdk-", "")
     artifactId = project.name.replace("sdk-", "")
     publishVersion = project.version
     desc = project.description
