@@ -87,6 +87,16 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
+project.ext.elastic = { notation, projectName ->
+    if (findProject(projectName.toString())) {
+        println "adding project dependency on project $projectName"
+        project(projectName)
+    } else {
+        println "adding binary dependency on project $notation"
+        notation
+    }
+}
+
 /*
  * Option to configure to disable Dex and Images Cruncher on CI
  *
