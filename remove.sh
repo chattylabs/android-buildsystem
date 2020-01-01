@@ -1,6 +1,7 @@
 #!/bin/bash
 
-submodule=${PWD##*/}
+#submodule=${PWD##*/}
+submodule="$1"
 
 git submodule deinit "$submodule"
 git rm --cached "$submodule"
