@@ -1,13 +1,17 @@
 #!/bin/bash
 
 #submodule=${PWD##*/}
-submodule="$1"
+remove="$1"
+update="$2"
 
-echo "Removing submodule $1"
+echo "Update submodule from $remove to $update"
 
-git submodule deinit "$submodule"
-git rm --cached "$submodule"
-rm -rf "./$submodule"
-rm -rf ".git/modules/$submodule"
-git config -f .gitmodules --remove-section "submodule.$submodule"
-git config -f .git/config --remove-section "submodule.$submodule"
+git submodule deinit "$remove"
+git rm --cached "$remove"
+rm -rf "./$remove"
+rm -rf ".git/modules/$remove"
+git config -f .gitmodules --remove-section "submodule.$remove"
+git config -f .git/config --remove-section "submodule.$remove"
+
+git submodule add -b master --name "$update" git@github.com:chattylabs/android-buildsystem.git
+git config -f .gitmodules "submodule.$update.update" rebase
