@@ -30,7 +30,7 @@ then
     git config -f .gitmodules "submodule.$submodule.update" rebase
     git config -f .gitmodules "submodule.$submodule.branch" master
     git config "alias.supdate" 'submodule update --init --remote --rebase'
-    echo "Submodule $i added."
+    echo "Submodule $submodule added."
     git supdate
 else
     echo "Updating submodule $submodule..."
