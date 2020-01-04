@@ -23,8 +23,7 @@ do
 done
 
 # Add & Init or Update submodule
-exists="git submodule status $submodule"
-if test -z "$exists" # If it doesn't exist
+if [[ ! -d "./$submodule" ]] # If it doesn't exist
 then
     echo "Adding submodule $submodule..."
     git submodule add -b master --name "$submodule" "git@github.com:chattylabs/$submodule.git"
