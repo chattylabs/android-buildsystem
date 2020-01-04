@@ -1,15 +1,5 @@
 apply plugin: 'com.chattylabs.versioning'
 
-versioning {
-
-    tagPrefix "version/"
-
-    keywords {
-        minor "[feature]"
-        patch "[bug]", "[patch]"
-    }
-}
-
 ext.computeVersionCode = { ->
     try {
         def stdout = new ByteArrayOutputStream()
