@@ -8,7 +8,7 @@ declare -a arr=("buildsystem") # deprecated submodules
 for i in "${arr[@]}"
 do
    oldExists="git submodule status $i"
-   if test -z "$oldExists" # If it doesn't exist
+   if test -z "$oldExists" # If it does exist
    then
        echo "Remove deprecated submodule $i..."
        git submodule deinit "$i"
@@ -29,12 +29,11 @@ then
     git submodule add -b master --name "$submodule" "git@github.com:chattylabs/$submodule.git"
     git config -f .gitmodules "submodule.$submodule.update" rebase
     git config -f .gitmodules "submodule.$submodule.branch" master
-    git config "alias.supdate" 'submodule update --init --remote --rebase'
     echo "Submodule $submodule added."
-    git supdate
+    git submodule update --init --remote --rebase
 else
     echo "Updating submodule $submodule..."
-    git supdate
+    git submodule update --init --remote --rebase
 fi
 
 wait # Waits until the process has finished
