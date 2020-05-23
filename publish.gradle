@@ -1,10 +1,9 @@
 apply plugin: 'com.novoda.bintray-release'
 
-group = project.hasProperty('group') ? project.group : 'chattylabs.android'
 version = android.defaultConfig.versionName
 
 publish {
-    userOrg = project.hasProperty('userOrg') ? project.group : 'chattylabs'
+    userOrg = project.hasProperty('userOrg') ? project.userOrg : 'chattylabs'
     groupId = project.group
     uploadName = "android-" + project.name.replace("sdk-", "")
     artifactId = project.name.replace("sdk-", "")
