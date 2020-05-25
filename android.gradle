@@ -3,6 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
+/*
+ * Option to configure to disable Dex and Images Cruncher on CI
+ *
+ * Usage: ./gradlew build -PisCi=true
+ */
+project.ext.enableOption = project.hasProperty("isCI") ? !project.isCI : true
+
 android {
 
     compileOptions {
@@ -78,10 +85,17 @@ android {
             }
         }
     }
+
+    dexOptions {
+        preDexLibraries = enableOption
+    }
+    aaptOptions {
+        cruncherEnabled = enableOption
+    }
 }
 
-if (kotlin_version == null) throw new NullPointerException("Please define \"ext.kotlin_version\" " +
-        "in your root gradle file")
+if (kotlin_version == null) throw new NullPointerException(
+        "Please define \"ext.kotlin_version\" in your root gradle file")
 
 dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -97,27 +111,7 @@ project.ext.elastic = { notation, projectName ->
     }
 }
 
-/*
- * Option to configure to disable Dex and Images Cruncher on CI
- *
- * Usage: ./gradlew build -PisCi=true
- */
-project.ext.enableOption = project.hasProperty("isCI") ? !project.isCI : true
-
-project.plugins.whenPluginAdded { plugin ->
-    if ("com.android.build.gradle.AppPlugin" == plugin.class.name ||
-        "com.android.build.gradle.LibraryPlugin" == plugin.class.name) {
-        project.android.dexOptions.preDexLibraries = rootProject.ext.enableOption
-        project.android.aaptOptions.cruncherEnabled = rootProject.ext.enableOption
-    }
-}
-
-/*
- * Avoid Javadoc to fail and to stop generating sources
- */
-if (JavaVersion.current().isJava8Compatible()) {
-    tasks.withType(Javadoc) {
-        excludes = ['**/*.kt']
-        options.addStringOption('Xdoclint:none', '-quiet')
-    }
+tasks.withType(Javadoc) {
+    //excludes = ['**/*.kt']
+    enabled = false
 }
