@@ -103,10 +103,10 @@ dependencies {
 
 project.ext.elastic = { notation, projectName ->
     if (findProject(projectName.toString())) {
-        println "adding project dependency on project $projectName"
+        println "adding local dependency on project $projectName"
         project(projectName)
     } else {
-        println "adding binary dependency on project $notation"
+        println "adding external dependency on project $notation"
         notation
     }
 }
